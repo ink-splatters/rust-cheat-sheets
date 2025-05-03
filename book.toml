@@ -1,0 +1,6 @@
+[book]
+authors = ["Peter A. <ink.splatters@pm.me>" ]
+language = "en"
+multilingual = false
+src = "src"
+title = "Rust Cheatsheets"
