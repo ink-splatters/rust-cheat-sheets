@@ -1,2 +1,4 @@
 /book
 .DS_Store
+/.direnv
+/.pre-commit-config.yaml

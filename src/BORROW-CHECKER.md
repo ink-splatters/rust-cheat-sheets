@@ -1,4 +1,5 @@
-### 🦀 **Rust Borrow Checker** (lang-features' level)
+## 🦀 **Rust Borrow Checker** (lang-features' level)
+
 ---
 
 ### 📌 **Borrowing Basics**
@@ -25,7 +26,7 @@ fn foo<'a>(x: &'a str) -> &'a str {
 * `'a` is a **named lifetime**
 * Returned ref is guaranteed to live as long as input
 
-#### Lifetime Elision Rules (Rust's defaults):
+#### Lifetime Elision Rules (Rust's defaults)
 
 ```rust
 // This:
@@ -74,7 +75,7 @@ Used in:
 
 ### 📈 **Function Lifetimes**
 
-#### Basic:
+#### Basic
 
 ```rust
 fn bar<'a, 'b>(x: &'a str, _y: &'b str) -> &'a str {
@@ -84,7 +85,7 @@ fn bar<'a, 'b>(x: &'a str, _y: &'b str) -> &'a str {
 
 You specify which lifetimes belong to each input/output.
 
-#### With Trait Objects:
+#### With Trait Objects
 
 ```rust
 trait Trait {}
