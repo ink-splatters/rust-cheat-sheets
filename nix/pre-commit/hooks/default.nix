@@ -1,7 +1,7 @@
 {
   imports = [
     ./mdbook.nix
-    # ./mdformat
+    ./mdformat
   ];
   perSystem = {
     pre-commit.settings.hooks = {
