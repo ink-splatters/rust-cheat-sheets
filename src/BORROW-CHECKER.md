@@ -1,17 +1,17 @@
-## 🦀 **Rust Borrow Checker** (lang-features' level)
+## 🦀 **Rust Borrow Checker** (lang-features' level) 🦀
 
----
+______________________________________________________________________
 
 ### 📌 **Borrowing Basics**
 
-| Syntax            | Meaning                   | Notes                       |
+| Syntax | Meaning | Notes |
 | ----------------- | ------------------------- | --------------------------- |
-| `&T`              | Shared (immutable) borrow | Allows read-only access     |
-| `&mut T`          | Mutable borrow            | Exclusive read/write access |
-| `*ptr`            | Dereference a pointer     | Unsafe for raw pointers     |
-| `ref` / `ref mut` | Pattern matching borrow   | E.g., `let Some(ref x)`     |
+| `&T` | Shared (immutable) borrow | Allows read-only access |
+| `&mut T` | Mutable borrow | Exclusive read/write access |
+| `*ptr` | Dereference a pointer | Unsafe for raw pointers |
+| `ref` / `ref mut` | Pattern matching borrow | E.g., `let Some(ref x)` |
 
----
+______________________________________________________________________
 
 ### 🧬 **Lifetimes**
 
@@ -23,8 +23,8 @@ fn foo<'a>(x: &'a str) -> &'a str {
 }
 ```
 
-* `'a` is a **named lifetime**
-* Returned ref is guaranteed to live as long as input
+- `'a` is a **named lifetime**
+- Returned ref is guaranteed to live as long as input
 
 #### Lifetime Elision Rules (Rust's defaults)
 
@@ -43,17 +43,17 @@ fn desugared<'a>(x: &'a str) -> &'a str {
 Rust will **elide** lifetimes if:
 
 1. There's **one input ref**, output gets its lifetime
-2. Method with `&self`/`&mut self`, output tied to `self`
-3. No elided output if >1 input refs — must be explicit
+1. Method with `&self`/`&mut self`, output tied to `self`
+1. No elided output if >1 input refs — must be explicit
 
----
+______________________________________________________________________
 
 ### 📚 **Lifetime Bounds**
 
 ```rust
-fn bounds<'a, T>(x: T) -> T 
-where 
-    T: 'a 
+fn bounds<'a, T>(x: T) -> T
+where
+    T: 'a,
 {
     x
 }
@@ -68,10 +68,10 @@ where
 
 Used in:
 
-* Generics (`struct Foo<'a, T: 'a>`)
-* Trait bounds (`impl<'a> Trait for &'a T`)
+- Generics (`struct Foo<'a, T: 'a>`)
+- Trait bounds (`impl<'a> Trait for &'a T`)
 
----
+______________________________________________________________________
 
 ### 📈 **Function Lifetimes**
 
@@ -97,7 +97,7 @@ fn trait_object<'a>(x: Box<dyn Trait + 'a>) -> Box<dyn Trait + 'a> {
 
 Trait object valid at least as long as `'a`.
 
----
+______________________________________________________________________
 
 ### 🔁 **Higher-Ranked Trait Bounds (HRTBs)**
 
@@ -112,23 +112,23 @@ where
 
 Enables **lifetime-polymorphic closures**, i.e., functions valid for **any** lifetime.
 
----
+______________________________________________________________________
 
 ### 🧪 **Non-Lexical Lifetimes (NLL)**
 
-* Stable since Rust 2018
-* Allows borrows to end *before* the end of their scope if not used anymore
+- Stable since Rust 2018
+- Allows borrows to end *before* the end of their scope if not used anymore
 
 ```rust
 fn nll_example() {
     let mut x = String::new();
     let y = &x;
     println!("{}", y); // borrow ends here
-    x.push('a');       // allowed, since y is no longer used
+    x.push('a'); // allowed, since y is no longer used
 }
 ```
 
----
+______________________________________________________________________
 
 ### 🏷️ **Lifetime Elision in Traits**
 
@@ -146,26 +146,26 @@ trait ExampleDesugared {
 }
 ```
 
----
+______________________________________________________________________
 
 ### ♻️ **Variance (for Lifetimes)**
 
 Variance affects subtyping and lifetime coercion.
 
-| Type          | Variance in lifetime `'a` |
+| Type | Variance in lifetime `'a` |
 | ------------- | ------------------------- |
-| `&'a T`       | **Covariant**             |
-| `fn(&'a T)`   | **Contravariant**         |
-| `Cell<&'a T>` | **Invariant**             |
+| `&'a T` | **Covariant** |
+| `fn(&'a T)` | **Contravariant** |
+| `Cell<&'a T>` | **Invariant** |
 
 Covariant means `'static` can be coerced to shorter, contravariant means reverse, invariant means neither.
 
----
+______________________________________________________________________
 
 ### 🧩 **Special Lifetime: `'static`**
 
-* Lives for the entire duration of the program
-* Used for constants, string literals, or to indicate ownership independence
+- Lives for the entire duration of the program
+- Used for constants, string literals, or to indicate ownership independence
 
 ```rust
 fn foo(x: &'static str) {
@@ -173,7 +173,7 @@ fn foo(x: &'static str) {
 }
 ```
 
----
+______________________________________________________________________
 
 ### 🧼 **Lifetime Annotations with `impl Trait`**
 
@@ -185,7 +185,7 @@ fn get_iter<'a>(s: &'a str) -> impl Iterator<Item = char> + 'a {
 
 You must **tie lifetimes** when returning `impl Trait` to ensure borrow validity.
 
----
+______________________________________________________________________
 
 ### 🎭 **Lifetime in Structs**
 
@@ -201,9 +201,9 @@ impl<'a> Holder<'a> {
 }
 ```
 
-* The struct cannot outlive the reference inside
+- The struct cannot outlive the reference inside
 
----
+______________________________________________________________________
 
 ### 🧪 **Lifetimes in Closures**
 
@@ -217,7 +217,7 @@ fn closure_example() {
 
 Closures can **capture by reference** or **by move** — compiler infers lifetimes based on usage.
 
----
+______________________________________________________________________
 
 ### 🧱 **Lifetime Inference in Impl Blocks**
 
@@ -235,7 +235,7 @@ impl<'a> Foo<'a> {
 
 Often elided, but for multiple lifetimes or complex cases, be explicit.
 
----
+______________________________________________________________________
 
 ### 🧩 **`'_`: Inferred Lifetime Placeholder**
 
@@ -259,21 +259,21 @@ struct MyType<'a> {
 impl<'a> Trait for MyType<'a> {}
 ```
 
----
+______________________________________________________________________
 
 ### 🕵️ **Lifetime Errors (Common)**
 
-| Error                             | Fix                               |
+| Error | Fix |
 | --------------------------------- | --------------------------------- |
-| "does not live long enough"       | Annotate lifetimes; return owned  |
-| "cannot borrow `x` as mutable"    | Make sure no immutable refs exist |
+| "does not live long enough" | Annotate lifetimes; return owned |
+| "cannot borrow `x` as mutable" | Make sure no immutable refs exist |
 | "mismatched types with lifetimes" | Align lifetimes across parameters |
 
----
+______________________________________________________________________
 
 ### 🚦 **Best Practices**
 
-* Prefer owned types (`String`, `Vec`) unless zero-copy matters
-* Use `Option<&T>` when conditional borrow needed
-* Use lifetime bounds on traits or structs sparingly — prefer cloning or owning
-* If lifetimes get complex — step back and check *ownership*
+- Prefer owned types (`String`, `Vec`) unless zero-copy matters
+- Use `Option<&T>` when conditional borrow needed
+- Use lifetime bounds on traits or structs sparingly — prefer cloning or owning
+- If lifetimes get complex — step back and check *ownership*
