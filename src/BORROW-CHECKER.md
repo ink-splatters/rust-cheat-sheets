@@ -1,7 +1,5 @@
 ## 🦀 **Rust Borrow Checker** (lang-features' level) 🦀
 
-______________________________________________________________________
-
 ### 📌 **Borrowing Basics**
 
 | Syntax | Meaning | Notes |
